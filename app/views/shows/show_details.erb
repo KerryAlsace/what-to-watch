@@ -1,6 +1,25 @@
 <h1>Show Details Page</h1>
 
+<h4><%= @show.title %></h4>
+<p>
+  Genre: <%= @show.genre %>
+</p>
+<p>
+  Length: <%= @show.length %>
+</p>
 
+<br>
+
+<a class="button" href="/shows/<%= @show.id %>/edit">Edit Show</a>
+
+<br>
+
+<form action="/shows/<%= @show.slug %>/delete" method="post">
+  <input type="hidden" name="_method">
+  <input type="submit" value="Delete Show">
+</form>
+
+<br>
 
 <a class="button" href="/shows/new">Create a New Show</a>
 <br>

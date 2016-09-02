@@ -1,5 +1,21 @@
 <h1>Edit Show Page</h1>
 
+<form action="/shows/<%= @show.slug %>" method="post">
+  <input type="hidden" name="_method" value="patch">
+  <h3>Current Show Details: </h3>
+  <p>
+    Title: <%= @show.title %> Change To: <input type="text" name="title" value="Leave Blank or Enter New Title">
+  </p>
+  <p>
+    Genre: <%= @show.genre %> Change To: <input type="text" name="title" value="Leave Blank or Enter New Genre">
+  </p>
+  <p>
+    Length: <%= @show.length %> Change To: <input type="text" name="title" value="Leave Blank or Enter New Length">
+  </p>
+  <input type="submit" value="Save Edits">
+</form>
+
+<br></br>
 
 <a class="button" href="/shows/new">Create a New Show</a>
 <br>
