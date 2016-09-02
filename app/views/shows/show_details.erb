@@ -10,12 +10,12 @@
 
 <br>
 
-<a class="button" href="/shows/<%= @show.id %>/edit">Edit Show</a>
+<a class="button" href="/shows/<%= @show.slug %>/edit">Edit Show</a>
 
 <br>
 
 <form action="/shows/<%= @show.slug %>/delete" method="post">
-  <input type="hidden" name="_method">
+  <input type="hidden" name="_method" value="delete">
   <input type="submit" value="Delete Show">
 </form>
 

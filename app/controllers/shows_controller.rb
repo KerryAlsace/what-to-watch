@@ -22,26 +22,26 @@ class ShowsController < ApplicationController
 
   ######## SHOW DETAILS #########
   get '/shows/:slug' do
-    @show = Show.find(params["slug"])
+    @show = Show.find_by_slug(params["slug"])
     erb :'/shows/show_details'
   end
 
   ######## EDIT SHOW #########
   get '/shows/:slug/edit' do
-    @show = Show.find(params["slug"])
+    @show = Show.find_by_slug(params["slug"])
     erb :'/shows/edit_show'
   end
 
   patch '/shows/:slug' do
-    @show = Show.find(params["slug"])
+    @show = Show.find_by_slug(params["slug"])
     @show.update(title: params["title"], genre: params["genre"], length: params["length"])
     erb :'/shows/show_details'
   end
 
   ######## DELETE SHOW #########
 
-  post 'shows/:slug/delete' do
-    @show = Show.find(params["slug"])
+  delete '/shows/:slug/delete' do
+    @show = Show.find_by_slug(params["slug"])
     @show.destroy
     redirect '/shows'
   end
