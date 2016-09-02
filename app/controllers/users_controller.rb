@@ -9,6 +9,7 @@ class UsersController < ApplicationController
     @user.display_name = params["display_name"]
     @user.username = params["username"]
     @user.password = params["password"]
+    @user.save
     login(params["username"], params["password"])
     redirect to "/shows/new"
   end
