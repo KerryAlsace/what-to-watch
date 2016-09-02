@@ -6,4 +6,6 @@ end
 
 use Rack::MethodOverride
 
+use ShowController
+use UserController
 run ApplicationController

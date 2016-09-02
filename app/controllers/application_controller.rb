@@ -9,4 +9,8 @@ class ApplicationController < Sinatra::Base
     set :session_secret, "whatchya_watchin"
   end
 
+  get '/' do
+    erb :index
+  end
+
 end
