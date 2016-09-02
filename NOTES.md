@@ -20,9 +20,9 @@ You should validate user input to ensure that bad data isn't created
     2. login.erb
   b. shows
     1. create_show.erb (add show to shows list)
-    2. shows.erb (show all current_user's shows)
+    2. list_shows.erb (show all current_user's shows)
     3. edit_show.erb
-    4. show_page.erb (individual show page with all show details)
+    4. show_details.erb (individual show page with all show details)
   c. layout.erb
   d. index.erb
 4. User has_many Shows
