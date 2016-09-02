@@ -1,11 +1,10 @@
 <h1>User Login Page</h1>
 
-<a class="button" href="/signup">Don't have a login? Sign Up Here</a>
+<form action="/login" method="post">
+  Username: <input type="text" name="username">
+  Password: <input type="password" name="password">
+  <input type="submit" value="Log In">
+</form>
 
 <br></br>
-
-<a class="button" href="/shows/new">Create a New Show</a>
-<br>
-<a class="button" href="/shows">Return to All Your Shows</a>
-<br>
-<a class="button" href="/logout">Logout</a>
+<a class="button" href="/signup">Don't have a login? Sign Up Here</a>
