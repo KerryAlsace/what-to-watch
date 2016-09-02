@@ -20,12 +20,7 @@ class UsersController < ApplicationController
 
   post '/login' do
     login(params["username"], params["password"])
-    redirect to "/users/#{@user.slug}/shows"
-  end
-
-  get '/users/:slug/shows' do
-    @user = User.find_by_slug(params[:slug])
-    erb :'/shows/list_shows'
+    redirect to "/shows"
   end
 
   get '/logout' do

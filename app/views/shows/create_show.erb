@@ -2,6 +2,15 @@
 
 <h1>Welcome to 'What To Watch' <%= @user.display_name %>!</h1>
 
+<form action="/shows" method="post">
+  Show Title: <input type="text" name="title">
+  Show Genre: <input type="text" name="genre">
+  Show Length: <input type="text" name="length">
+  <input type="submit" value="Create">
+</form>
+
+<br></br>
+
 
 
 

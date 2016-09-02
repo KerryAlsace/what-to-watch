@@ -37,3 +37,7 @@ You should validate user input to ensure that bad data isn't created
   a. title
   b. genre
   c. length
+
+
+* Users can only see their own shows for now...
+* Users will see their shows at '/shows'
