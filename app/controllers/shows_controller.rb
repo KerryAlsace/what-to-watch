@@ -34,9 +34,11 @@ class ShowsController < ApplicationController
 
   ######## SHOW DETAILS #########
   get '/shows/:slug' do
-    if logged_in?
-      @show = Show.find_by_slug(params["slug"])
+    @show = Show.find_by_slug(params["slug"])
+    if logged_in? && @show.user_id == current_user.id
       erb :'/shows/show_details'
+    elsif logged_in?
+      redirect '/shows'
     else
       redirect '/login'
     end
