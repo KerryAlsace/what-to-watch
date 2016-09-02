@@ -1,6 +1,17 @@
 <h1>List Shows Page</h1>
 
 
+<% @current_user_shows.each do |show| %>
+  <h3><%= show.title %></h3>
+  <p>
+    <%= show.genre %><br>
+    <%= show.length %>
+  </p>
+  <br></br>
+<% end %>
+
+
+
 <a class="button" href="/shows/new">Create a New Show</a>
 <br>
 <a class="button" href="/logout">Logout</a>
