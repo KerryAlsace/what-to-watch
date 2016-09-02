@@ -68,6 +68,7 @@ class ShowsController < ApplicationController
 
   ######## DELETE SHOW #########
 
+  # this doesn't work anymore and i don't know why
   delete '/shows/:slug/delete' do
     @show = Show.find_by_slug(params["slug"])
     if !logged_in?
