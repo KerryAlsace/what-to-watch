@@ -1,21 +1,29 @@
 class UsersController < ApplicationController
 
   get '/signup' do
-    erb :'/users/signup'
+    if logged_in?
+      redirect to '/shows'
+    else
+      erb :'/users/signup'
+    end
   end
 
   post '/signup' do
-    @user = User.new
-    @user.display_name = params["display_name"]
-    @user.username = params["username"]
-    @user.password = params["password"]
-    @user.save
-    login(params["username"], params["password"])
-    redirect to "/shows/new"
+    user = User.create(display_name: params["display_name"], username: params["username"], password: params["password"])
+    if user.save
+      login(params["username"], params["password"])
+      redirect to "/shows/new"
+    else
+      redirect to '/signup'
+    end
   end
 
   get '/login' do
+    if logged_in?
+      redirect to '/shows'
+    else
       erb :'/users/login'
+    end
   end
 
   post '/login' do
