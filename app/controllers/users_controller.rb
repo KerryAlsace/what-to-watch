@@ -1,21 +1,47 @@
 class UsersController < ApplicationController
 
   get '/signup' do
-    erb :'/users/signup'
+    if logged_in?
+      redirect to "/users/#{@user.slug}/shows"
+    else
+      erb :'/users/signup'
+    end
   end
 
   post '/signup' do
-    @user = User.create(display_name: params["display_name"], username: params["username"], password: params["password"])
-    redirect to "/create_show"
+    @user = User.new
+    @user.display_name = params["display_name"]
+    @user.username = params["username"]
+    @user.password = params["password"]
+    if @user.save
+      login(params["username"], params["password"])
+      redirect to "/create_show"
+    else
+      redirect to "/signup"
+    end
   end
 
   get '/login' do
-    erb :'/users/login'
+    if logged_in?
+      redirect to "/users/#{@user.slug}/shows"
+    else
+      erb :'/users/login'
+    end
   end
 
   post '/login' do
-    @user = User.find_by(username: params["username"])
+    login(params["username"], params["password"])
     redirect to "/users/#{@user.slug}/shows"
+  end
+
+  get '/users/:slug/shows' do
+    @user = User.find_by_slug(params[:slug])
+    erb :'/shows/list_shows'
+  end
+
+  get '/logout' do
+    logout!
+    redirect to "/login"
   end
 
 end
