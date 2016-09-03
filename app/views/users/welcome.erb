@@ -1,0 +1,13 @@
+<h1>Welcome to 'What To Watch' <%= @user.display_name %>!</h1>
+
+<h2>What Would You Like To Do?</h2>
+
+<a class="button" href="/shows">See All Your Shows</a>
+<br>
+<a class="button" href="/shows/new">Create a New Show</a>
+<br>
+<a class="button" href="/shows/<%= @show_slug %>">Get a Random Show Recommendation</a>
+
+<br></br>
+
+<a class="button" href="/logout">Logout</a>

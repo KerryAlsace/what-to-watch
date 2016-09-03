@@ -11,7 +11,9 @@ class ApplicationController < Sinatra::Base
 
   get '/' do
     if logged_in?
-      redirect '/shows'
+      @user = current_user
+      @show_slug = (Show.all.sample).slug
+      erb :'/users/welcome'
     else
       erb :index
     end

@@ -1,6 +1,4 @@
-<h1>Show Details Page</h1>
-
-<%= params %>
+<h1>Wanna Watch This?</h1>
 
 <h4><%= @show.title %></h4>
 <p>
@@ -13,6 +11,10 @@
 <br>
 
 <a class="button" href="/shows/<%= @show.slug %>/edit">Edit Show</a>
+
+<br>
+
+<a class="button" href="/shows/<%= @show_slug %>">Get a Random Show Recommendation</a>
 
 <br>
 

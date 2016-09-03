@@ -5,6 +5,7 @@ class ShowsController < ApplicationController
     if logged_in?
       @user = current_user
       @current_user_shows = current_user.shows
+      @show_slug = (Show.all.sample).slug
       erb :'/shows/list_shows'
     else
       redirect '/login'
@@ -38,6 +39,7 @@ class ShowsController < ApplicationController
   get '/shows/:slug' do
     @show = Show.find_by_slug(params["slug"])
     if logged_in? && @show.user_id == current_user.id
+      @show_slug = (Show.all.sample).slug
       erb :'/shows/show_details'
     elsif logged_in?
       redirect '/shows'
@@ -58,10 +60,7 @@ class ShowsController < ApplicationController
     end
   end
 
-  #{"_method"=>"patch", "title"=>"User 2 Show 1 Edited 3", "show_genre"=>"32", "show_length"=>"16", "splat"=>[], "captures"=>["user-2-show-1-edited-2"], "slug"=>"user-2-show-1-edited-2"}
-
   patch '/shows/:slug' do
-    puts params
     @show = Show.find_by_slug(params["slug"])
     genre_id = (params["show_genre"].to_i)
     length_id = (params["show_length"].to_i)

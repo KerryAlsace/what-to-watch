@@ -1,5 +1,7 @@
-<h1>List Shows Page</h1>
+<h1>Which Show Do You Want to Watch?</h1>
 
+<a class="button" href="/shows/<%= @show_slug %>">Get a Random Show Recommendation</a>
+<br>
 
 <% @current_user_shows.each do |show| %>
   <h3><a href="/shows/<%= show.slug %>"><%= show.title %></a></h3>
