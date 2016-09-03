@@ -9,10 +9,18 @@
   <input type="submit" value="Create">
 </form>
 
+
+
+
+<form method ="post" action ="">
+  <select>Select Genre
+    <% @genres.each do |t| %>
+        <option value="<%= genre.id %>"><%= genre.name %></option>
+    <% end %>
+  </select>
+  <input type="submit" name="Submit" />
+
 <br></br>
-
-
-
 
 <a class="button" href="/shows">Return to All Your Shows</a>
 <br>
