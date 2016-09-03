@@ -8,6 +8,7 @@ class ShowsController < ApplicationController
       @show_slug = (current_user.shows.sample).slug
       erb :'/shows/list_shows'
     else
+      flash[:message] = "Gotta log in before you can do that."
       redirect '/login'
     end
   end
@@ -20,6 +21,7 @@ class ShowsController < ApplicationController
       @user = current_user
       erb :'/shows/create_show'
     else
+      flash[:message] = "Gotta log in before you can do that."
       redirect '/login'
     end
   end
@@ -31,6 +33,7 @@ class ShowsController < ApplicationController
       @show.save
       redirect '/shows'
     else
+      flash[:message] = "That didn't work, try again."
       redirect '/shows/new'
     end
   end
@@ -42,21 +45,28 @@ class ShowsController < ApplicationController
       @show_slug = (current_user.shows.sample).slug
       erb :'/shows/show_details'
     elsif logged_in?
+      flash[:message] = "That's not your show to view!"
       redirect '/shows'
     else
+      flash[:message] = "Gotta log in before you can do that."
       redirect '/login'
     end
   end
 
   ######## EDIT SHOW #########
   get '/shows/:slug/edit' do
-    if logged_in?
+    @show = Show.find_by_slug(params["slug"])
+    if !logged_in?
+      flash[:message] = "Gotta log in before you can do that."
+      redirect '/login'
+    elsif @show.user_id == current_user.id
       @genres = Genre.all
       @lengths = Length.all
       @show = Show.find_by_slug(params["slug"])
       erb :'/shows/edit_show'
     else
-      redirect '/login'
+      flash[:message] = "That's not your show to edit!"
+      redirect '/shows'
     end
   end
 
@@ -79,15 +89,31 @@ class ShowsController < ApplicationController
 
   ######## DELETE SHOW #########
 
-  # this doesn't work anymore and i don't know why
+  get '/shows/:slug/delete' do
+    @show = Show.find_by_slug(params["slug"])
+    if !logged_in?
+      flash[:message] = "Gotta log in before you can do that."
+      redirect '/login'
+    elsif @show.user_id == current_user.id
+      @show.destroy
+      flash[:message] = "Show has been deleted!"
+      redirect '/shows'
+    else
+      flash[:message] = "That's not your show to delete!"
+      redirect '/shows'
+    end
+  end
+
   delete '/shows/:slug/delete' do
     @show = Show.find_by_slug(params["slug"])
     if !logged_in?
+      flash[:message] = "Gotta log in before you can do that."
       redirect '/login'
     elsif @show.user_id == current_user.id
       @show.destroy
       redirect '/shows'
     else
+      flash[:message] = "That's not your show to delete!"
       redirect '/shows'
     end
   end

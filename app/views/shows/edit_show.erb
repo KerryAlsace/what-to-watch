@@ -1,5 +1,9 @@
 <h1>Edit Your Show</h1>
 
+<% if flash.has?(:message) %>
+  <%= flash[:message] %>
+<% end %>
+
 <form action="/shows/<%= @show.slug %>" method="post">
   <input type="hidden" name="_method" value="patch">
   <h3>Current Show Details: </h3>

@@ -1,5 +1,9 @@
 <h1>Make a New Show</h1>
 
+<% if flash.has?(:message) %>
+  <%= flash[:message] %>
+<% end %>
+
 <form action="/shows" method="post">
   Show Title: <input type="text" name="title"><br>
   Show Genre:

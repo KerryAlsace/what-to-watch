@@ -1,5 +1,9 @@
 <h1>Welcome to 'What To Watch' <%= @user.display_name %>!</h1>
 
+<% if flash.has?(:message) %>
+  <%= flash[:message] %>
+<% end %>
+
 <h2>What Would You Like To Do?</h2>
 
 <p>

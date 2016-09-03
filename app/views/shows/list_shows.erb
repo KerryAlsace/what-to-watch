@@ -1,5 +1,9 @@
 <h1>Which Show Do You Want to Watch?</h1>
 
+<% if flash.has?(:message) %>
+  <%= flash[:message] %>
+<% end %>
+
 <a class="button" href="/shows/<%= @show_slug %>">Get a Random Show Recommendation</a>
 <br>
 

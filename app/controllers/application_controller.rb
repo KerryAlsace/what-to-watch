@@ -1,6 +1,8 @@
 require './config/environment'
+require 'rack-flash'
 
 class ApplicationController < Sinatra::Base
+  use Rack::Flash
 
   configure do
     set :public_folder, 'public'
@@ -27,6 +29,7 @@ class ApplicationController < Sinatra::Base
         session["username"] = @user.username
         session["display_name"] = @user.display_name
       else
+        flash[:message] = "We don't recognize that username and password combo, try again."
         redirect to '/login'
       end
     end

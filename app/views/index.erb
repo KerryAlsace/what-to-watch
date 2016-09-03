@@ -1,5 +1,9 @@
 <h1>What To Watch?</h1>
 
+<% if flash.has?(:message) %>
+  <%= flash[:message] %>
+<% end %>
+
 New to 'What To Watch'?
 <a class="button" href="/signup">Sign Up Here</a>
 <br></br>
