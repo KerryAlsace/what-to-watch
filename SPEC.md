@@ -15,8 +15,10 @@ Specs:
 -   # User must be owner/creator of Show to edit/delete it
 - [x] Include user input validations
 -   # Users can't create blank shows
-- [ ] Display validation failures to user with error message (example form URL e.g. /posts/new)
-- [ ] Your README.md includes a short description, install instructions, a contributors guide and a link to the license for your code
+- [x] Display validation failures to user with error message (example form URL e.g. /posts/new)
+-   # Users receive flash messages when doing forbidden actions
+- [x] Your README.md includes a short description, install instructions, a contributors guide and a link to the license for your code
+-   # README contains description, install instructions, a contributors guide, and a link to the license.
 
 Confirm
 - [x] You have a large number of small Git commits
