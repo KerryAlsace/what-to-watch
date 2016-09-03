@@ -4,10 +4,10 @@
   <input type="hidden" name="_method" value="patch">
   <h3>Current Show Details: </h3>
   <p>
-    Title: <%= @show.title %> Change To: <input type="text" name="title">
+    Title: <input type="text" name="title" value="<%= @show.title %>">
   </p>
   <p>
-    Genre: <%= @show.show_genre %> Change To:
+    Genre:
         <select name="show_genre">
           <% @genres.each do |genre| %>
             <% if genre.id == @show.genre_id %>
@@ -20,10 +20,14 @@
         <br>
   </p>
   <p>
-    Length: <%= @show.show_length %> Change To:
+    Length:
         <select name="show_length">
           <% @lengths.each do |length| %>
+            <% if length.id == @show.length_id %>
+              <option value="<%= length.id %>" selected="selected"><%= length.length_description %></option>
+            <% else %>
               <option value="<%= length.id %>"><%= length.length_description %></option>
+            <% end %>
           <% end %>
         </select>
   </p>
