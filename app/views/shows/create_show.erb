@@ -1,13 +1,22 @@
-<h1>Create Show Page</h1>
-
 <h1>Welcome to 'What To Watch' <%= @user.display_name %>!</h1>
 
 <form action="/shows" method="post">
-  Show Title: <input type="text" name="title">
-  Show Genre: <input type="text" name="genre">
-  Show Length: <input type="text" name="length">
+  Show Title: <input type="text" name="title"><br>
+  Show Genre: <input type="text" name="genre"><br>
+  Show Length: <input type="text" name="length"><br>
   <input type="submit" value="Create">
 </form>
+
+<div class="dropdown open">
+  <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+    Dropdown button
+  </button>
+  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+    <a class="dropdown-item" href="#">Action</a>
+    <a class="dropdown-item" href="#">Another action</a>
+    <a class="dropdown-item" href="#">Something else here</a>
+  </div>
+</div>
 
 <br></br>
 
