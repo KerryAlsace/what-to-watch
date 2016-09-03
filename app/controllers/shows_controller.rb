@@ -15,6 +15,7 @@ class ShowsController < ApplicationController
   get '/shows/new' do
     if logged_in?
       @genres = Genre.all
+      @lengths = Length.all
       @user = current_user
       erb :'/shows/create_show'
     else

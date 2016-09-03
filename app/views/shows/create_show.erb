@@ -1,24 +1,25 @@
-<h1>Create Show Page</h1>
-
 <h1>Welcome to 'What To Watch' <%= @user.display_name %>!</h1>
 
 <form action="/shows" method="post">
-  Show Title: <input type="text" name="title">
-  Show Genre: <input type="text" name="genre">
-  Show Length: <input type="text" name="length">
+  Show Title: <input type="text" name="title"><br>
+  Show Genre:
+    <form method ="post" action ="">
+      <select>
+        <% @genres.each do |genre| %>
+            <option value="<%= genre.id %>"><%= genre.name %></option>
+        <% end %>
+      </select>
+      <br>
+  Show Length:
+    <form method ="post" action ="">
+      <select>
+        <% @lengths.each do |length| %>
+            <option value="<%= length.id %>"><%= length.length_description %></option>
+        <% end %>
+      </select>
+      <br>
   <input type="submit" value="Create">
 </form>
-
-
-
-
-<form method ="post" action ="">
-  <select>Select Genre
-    <% @genres.each do |t| %>
-        <option value="<%= genre.id %>"><%= genre.name %></option>
-    <% end %>
-  </select>
-  <input type="submit" name="Submit" />
 
 <br></br>
 

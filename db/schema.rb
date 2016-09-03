@@ -10,15 +10,23 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160902182725) do
+ActiveRecord::Schema.define(version: 20160903175412) do
+
+  create_table "genres", force: :cascade do |t|
+    t.string "name"
+  end
+
+  create_table "lengths", force: :cascade do |t|
+    t.string "length_description"
+  end
 
   create_table "shows", force: :cascade do |t|
     t.string   "title"
-    t.string   "genre"
-    t.integer  "length"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "user_id"
+    t.integer  "genre_id"
+    t.integer  "length_id"
   end
 
   create_table "users", force: :cascade do |t|
