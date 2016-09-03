@@ -62,6 +62,7 @@ class ShowsController < ApplicationController
 
   patch '/shows/:slug' do
     @show = Show.find_by_slug(params["slug"])
+    @show_slug = (current_user.shows.sample).slug
     genre_id = (params["show_genre"].to_i)
     length_id = (params["show_length"].to_i)
     if !(params["title"] == "")
