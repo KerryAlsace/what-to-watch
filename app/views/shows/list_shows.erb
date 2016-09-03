@@ -4,8 +4,8 @@
 <% @current_user_shows.each do |show| %>
   <h3><a href="/shows/<%= show.slug %>"><%= show.title %></a></h3>
   <p>
-    <%= show.genre %><br>
-    <%= show.length %>
+    <%= show.show_genre %><br>
+    <%= show.show_length %>
   </p>
   <br></br>
 <% end %>
