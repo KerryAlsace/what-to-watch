@@ -3,6 +3,8 @@ class ShowsController < ApplicationController
   ######## SHOW INDEX #########
   get '/shows' do
     if logged_in?
+      @genres = Genre.all
+      @lengths = Length.all
       @user = current_user
       @current_user_shows = current_user.shows
       erb :'/shows/list_shows'
