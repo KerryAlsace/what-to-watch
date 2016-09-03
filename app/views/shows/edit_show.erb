@@ -10,7 +10,11 @@
     Genre: <%= @show.show_genre %> Change To:
         <select name="show_genre">
           <% @genres.each do |genre| %>
+            <% if genre.id == @show.genre_id %>
+              <option value="<%= genre.id %>" selected="selected"><%= genre.name %></option>
+            <% else %>
               <option value="<%= genre.id %>"><%= genre.name %></option>
+            <% end %>
           <% end %>
         </select>
         <br>
@@ -25,6 +29,7 @@
   </p>
   <input type="submit" value="Save Edits">
 </form>
+
 
 <br></br>
 
