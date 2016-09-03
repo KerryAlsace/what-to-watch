@@ -5,7 +5,7 @@ class ShowsController < ApplicationController
     if logged_in?
       @user = current_user
       @current_user_shows = current_user.shows
-      @show_slug = (Show.all.sample).slug
+      @show_slug = (current_user.shows.sample).slug
       erb :'/shows/list_shows'
     else
       redirect '/login'
@@ -39,7 +39,7 @@ class ShowsController < ApplicationController
   get '/shows/:slug' do
     @show = Show.find_by_slug(params["slug"])
     if logged_in? && @show.user_id == current_user.id
-      @show_slug = (Show.all.sample).slug
+      @show_slug = (current_user.shows.sample).slug
       erb :'/shows/show_details'
     elsif logged_in?
       redirect '/shows'
