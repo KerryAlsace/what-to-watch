@@ -49,6 +49,8 @@ class ShowsController < ApplicationController
   ######## EDIT SHOW #########
   get '/shows/:slug/edit' do
     if logged_in?
+      @genres = Genre.all
+      @lengths = Length.all
       @show = Show.find_by_slug(params["slug"])
       erb :'/shows/edit_show'
     else
@@ -56,16 +58,21 @@ class ShowsController < ApplicationController
     end
   end
 
+  #{"_method"=>"patch", "title"=>"User 2 Show 1 Edited 3", "show_genre"=>"32", "show_length"=>"16", "splat"=>[], "captures"=>["user-2-show-1-edited-2"], "slug"=>"user-2-show-1-edited-2"}
+
   patch '/shows/:slug' do
+    puts params
     @show = Show.find_by_slug(params["slug"])
+    genre_id = (params["show_genre"].to_i)
+    length_id = (params["show_length"].to_i)
     if !(params["title"] == "")
       @show.update(title: params["title"])
     end
-    if !(params["genre"] == "")
-      @show.update(genre: params["genre"])
+    if !(@show.genre_id == genre_id)
+      @show.update(genre_id: genre_id)
     end
-    if !(params["length"] == "")
-      @show.update(length: params["length"])
+    if !(@show.length_id == length_id)
+      @show.update(length_id: length_id)
     end
     erb :'/shows/show_details'
   end

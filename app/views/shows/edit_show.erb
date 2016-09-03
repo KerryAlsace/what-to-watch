@@ -8,8 +8,7 @@
   </p>
   <p>
     Genre: <%= @show.show_genre %> Change To:
-      <form method ="post" action ="">
-        <select>
+        <select name="show_genre">
           <% @genres.each do |genre| %>
               <option value="<%= genre.id %>"><%= genre.name %></option>
           <% end %>
@@ -18,8 +17,7 @@
   </p>
   <p>
     Length: <%= @show.show_length %> Change To:
-      <form method ="post" action ="">
-        <select>
+        <select name="show_length">
           <% @lengths.each do |length| %>
               <option value="<%= length.id %>"><%= length.length_description %></option>
           <% end %>

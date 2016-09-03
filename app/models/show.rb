@@ -7,6 +7,10 @@ class Show < ActiveRecord::Base
     Genre.find(self.genre_id).name
   end
 
+  def show_length=(show_length)
+    @show_length = show_length
+  end
+
   def show_length
     Length.find(self.length_id).length_description
   end
