@@ -3,15 +3,36 @@
 <a class="button" href="/shows/<%= @show_slug %>">Get a Random Show Recommendation</a>
 <br>
 
-<% @current_user_shows.each do |show| %>
-  <h3><a href="/shows/<%= show.slug %>"><%= show.title %></a></h3>
-  <p>
-    <%= show.show_genre %><br>
-    <%= show.show_length %>
-  </p>
-  <br></br>
-<% end %>
+<br></br>
 
+<table>
+  <tr>
+    <th>
+      Show Title
+    </th>
+    <th>
+      Genre
+    </th>
+    <th>
+      Length
+    </th>
+  </tr>
+  <% @current_user_shows.each do |show| %>
+  <tr>
+    <td>
+      <a href="/shows/<%= show.slug %>"><%= show.title %></a>
+    </td>
+    <td>
+      <%= show.show_genre %>
+    </td>
+    <td>
+      <%= show.show_length %>
+    </td>
+  </tr>
+  <% end %>
+</table>
+
+<br></br>
 
 
 <a class="button" href="/shows/new">Create a New Show</a>
