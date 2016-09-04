@@ -9,32 +9,26 @@
 
 <br></br>
 
-<table>
-  <tr>
-    <th>
-      Show Title
-    </th>
-    <th>
-      Genre
-    </th>
-    <th>
-      Length
-    </th>
-  </tr>
-  <% @current_user_shows.each do |show| %>
-  <tr>
-    <td>
-      <a href="/shows/<%= show.slug %>"><%= show.title %></a>
-    </td>
-    <td>
-      <%= show.show_genre %>
-    </td>
-    <td>
-      <%= show.show_length %>
-    </td>
-  </tr>
-  <% end %>
-</table>
+<div class="col-md-6">
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>Show Title</th>
+        <th>Genre</th>
+        <th>Length</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @current_user_shows.each do |show| %>
+      <tr>
+        <td><a href="/shows/<%= show.slug %>"><%= show.title %></a></td>
+        <td><%= show.show_genre %></td>
+        <td><%= show.show_length %></td>
+      </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
 
 <br></br>
 
