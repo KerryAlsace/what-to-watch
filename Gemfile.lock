@@ -20,8 +20,13 @@ GEM
       tzinfo (~> 1.1)
     addressable (2.4.0)
     arel (7.1.1)
+    autoprefixer-rails (6.4.1)
+      execjs
     bcrypt (3.1.11)
     bond (0.5.1)
+    bootstrap (4.0.0.alpha3.1)
+      autoprefixer-rails (>= 6.0.3)
+      sass (>= 3.4.19)
     capybara (2.8.1)
       addressable
       mime-types (>= 1.16)
@@ -34,6 +39,7 @@ GEM
     daemons (1.2.4)
     diff-lcs (1.2.5)
     eventmachine (1.2.0.1)
+    execjs (2.7.0)
     i18n (0.7.0)
     method_source (0.8.2)
     mime-types (3.1)
@@ -79,6 +85,7 @@ GEM
       diff-lcs (>= 1.2.0, < 2.0)
       rspec-support (~> 3.5.0)
     rspec-support (3.5.0)
+    sass (3.4.22)
     shotgun (0.9.1)
       rack (>= 1.0)
     sinatra (1.4.7)
@@ -112,6 +119,7 @@ PLATFORMS
 DEPENDENCIES
   activerecord
   bcrypt
+  bootstrap (~> 4.0.0.alpha3)
   capybara
   database_cleaner!
   pry
