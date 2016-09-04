@@ -8,7 +8,8 @@
   Show Title: <input type="text" name="title"><br>
   Show Genre:
     <form method ="post" action ="">
-      <select>
+      <select name="show_genre">
+        <option></option>
         <% @genres.each do |genre| %>
             <option value="<%= genre.id %>"><%= genre.name %></option>
         <% end %>
@@ -16,13 +17,19 @@
       <br>
   Show Length:
     <form method ="post" action ="">
-      <select>
+      <select name="show_length">
+        <option> </option>
         <% @lengths.each do |length| %>
             <option value="<%= length.id %>"><%= length.length_description %></option>
         <% end %>
       </select>
       <br>
-  <input type="submit" value="Create">
+
+<br></br>
+
+Don't see the genre you need above? Keep the genre field above blank and add a new one here: <input type="text" name="new_genre"><br>
+Don't see the length you need above? Keep the length field above blank and add a new one here: <input type="text" name="new_length"><br>
+<input type="submit" value="Create">
 </form>
 
 <br></br>

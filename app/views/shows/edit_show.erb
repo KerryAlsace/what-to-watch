@@ -13,6 +13,7 @@
   <p>
     Genre:
         <select name="show_genre">
+          <option> </option>
           <% @genres.each do |genre| %>
             <% if genre.id == @show.genre_id %>
               <option value="<%= genre.id %>" selected="selected"><%= genre.name %></option>
@@ -26,6 +27,7 @@
   <p>
     Length:
         <select name="show_length">
+          <option> </option>
           <% @lengths.each do |length| %>
             <% if length.id == @show.length_id %>
               <option value="<%= length.id %>" selected="selected"><%= length.length_description %></option>
@@ -35,6 +37,11 @@
           <% end %>
         </select>
   </p>
+
+<br></br>
+
+Don't see the genre you need above? Change the genre field above to the blank and add a new one here: <input type="text" name="new_genre"><br>
+Don't see the length you need above? Change the length field above to the blank and add a new one here: <input type="text" name="new_length"><br>
   <input type="submit" value="Save Edits">
 </form>
 

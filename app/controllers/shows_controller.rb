@@ -27,13 +27,26 @@ class ShowsController < ApplicationController
   end
 
   post '/shows' do
-    if !(params["title"] == "" && params["genre"] == "" && params["length"] == "")
-      @show = Show.create(title: params["title"], genre: params["genre"], length: params["length"])
+    if !(params["title"] == "") && (!(params["show_genre"] == "") || !(params["new_genre"] == "")) && (!(params["show_length"] == "") || !(params["new_length"] == ""))
+      @show = Show.new
+      @show.title = params["title"]
       @show.user = current_user
+      if !(params["show_genre"] == "")
+        @show.genre_id = params["show_genre"].to_i
+      else
+        new_genre = Genre.create(name: params["new_genre"])
+        @show.genre_id = new_genre.id
+      end
+      if !(params["show_length"] == "")
+        @show.length_id = params["show_length"].to_i
+      else
+        new_length = Length.create(name: params["new_length"])
+        @show.length_id = new_length.id
+      end
       @show.save
       redirect '/shows'
     else
-      flash[:message] = "That didn't work, try again."
+      flash[:message] = "Every field needs to be filled out, make sure your show has a Title, a Genre, and a Length."
       redirect '/shows/new'
     end
   end
@@ -79,10 +92,20 @@ class ShowsController < ApplicationController
       @show.update(title: params["title"])
     end
     if !(@show.genre_id == genre_id)
-      @show.update(genre_id: genre_id)
+      if !(params["show_genre"] == "")
+        @show.update(genre_id: genre_id)
+      else
+        new_genre = Genre.create(name: params["new_genre"])
+        @show.update(genre_id: new_genre.id)
+      end
     end
     if !(@show.length_id == length_id)
-      @show.update(length_id: length_id)
+      if !(params["show_length"] == "")
+        @show.update(length_id: length_id)
+      else
+        new_length = Length.create(name: params["new_length"])
+        @show.update(length_id: new_length.id)
+      end
     end
     erb :'/shows/show_details'
   end
