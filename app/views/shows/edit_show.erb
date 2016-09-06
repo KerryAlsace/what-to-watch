@@ -4,7 +4,7 @@
   <%= flash[:message] %>
 <% end %>
 
-<form action="/shows/<%= @show.slug %>" method="post">
+<form action="/shows/<%= @show.id %>" method="post">
   <input type="hidden" name="_method" value="patch">
   <h3>Current Show Details: </h3>
   <p>

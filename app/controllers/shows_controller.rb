@@ -5,7 +5,7 @@ class ShowsController < ApplicationController
     if logged_in?
       @user = current_user
       @current_user_shows = current_user.shows
-      @show_slug = (current_user.shows.sample).slug
+      @show_id = (current_user.shows.sample).id
       erb :'/shows/list_shows'
     else
       flash[:message] = "Gotta log in before you can do that."
@@ -52,10 +52,10 @@ class ShowsController < ApplicationController
   end
 
   ######## SHOW DETAILS #########
-  get '/shows/:slug' do
-    @show = Show.find_by_slug(params["slug"])
+  get '/shows/:id' do
+    @show = Show.find(params["id"])
     if logged_in? && @show.user_id == current_user.id
-      @show_slug = (current_user.shows.sample).slug
+      @show_id = (current_user.shows.sample).id
       erb :'/shows/show_details'
     elsif logged_in?
       flash[:message] = "That's not your show to view!"
@@ -67,15 +67,15 @@ class ShowsController < ApplicationController
   end
 
   ######## EDIT SHOW #########
-  get '/shows/:slug/edit' do
-    @show = Show.find_by_slug(params["slug"])
+  get '/shows/:id/edit' do
+    @show = Show.find(params["id"])
     if !logged_in?
       flash[:message] = "Gotta log in before you can do that."
       redirect '/login'
     elsif @show.user_id == current_user.id
       @genres = Genre.all
       @lengths = Length.all
-      @show = Show.find_by_slug(params["slug"])
+      @show = Show.find(params["id"])
       erb :'/shows/edit_show'
     else
       flash[:message] = "That's not your show to edit!"
@@ -83,9 +83,9 @@ class ShowsController < ApplicationController
     end
   end
 
-  patch '/shows/:slug' do
-    @show = Show.find_by_slug(params["slug"])
-    @show_slug = (current_user.shows.sample).slug
+  patch '/shows/:id' do
+    @show = Show.find(params["id"])
+    @show_id = (current_user.shows.sample).id
     genre_id = (params["show_genre"].to_i)
     length_id = (params["show_length"].to_i)
     if !(params["title"] == "")
@@ -103,7 +103,7 @@ class ShowsController < ApplicationController
       if !(params["show_length"] == "")
         @show.update(length_id: length_id)
       else
-        new_length = Length.create(name: params["new_length"])
+        new_length = Length.create(length_description: params["new_length"])
         @show.update(length_id: new_length.id)
       end
     end
@@ -112,8 +112,8 @@ class ShowsController < ApplicationController
 
   ######## DELETE SHOW #########
 
-  get '/shows/:slug/delete' do
-    @show = Show.find_by_slug(params["slug"])
+  get '/shows/:id/delete' do
+    @show = Show.find(params["id"])
     if !logged_in?
       flash[:message] = "Gotta log in before you can do that."
       redirect '/login'
@@ -127,8 +127,8 @@ class ShowsController < ApplicationController
     end
   end
 
-  delete '/shows/:slug/delete' do
-    @show = Show.find_by_slug(params["slug"])
+  delete '/shows/:id/delete' do
+    @show = Show.find(params["id"])
     if !logged_in?
       flash[:message] = "Gotta log in before you can do that."
       redirect '/login'
