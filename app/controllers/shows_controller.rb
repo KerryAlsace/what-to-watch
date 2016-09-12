@@ -1,4 +1,5 @@
 class ShowsController < ApplicationController
+  helpers ShowHelpers
 
   ######## SHOW INDEX #########
   get '/shows' do
@@ -8,7 +9,7 @@ class ShowsController < ApplicationController
       random_show
       erb :'/shows/list_shows'
     else
-      flash[:message] = "Gotta log in before you can do that."
+      login_warning_message
       redirect '/login'
     end
   end
@@ -21,7 +22,7 @@ class ShowsController < ApplicationController
       @user = current_user
       erb :'/shows/create_show'
     else
-      flash[:message] = "Gotta log in before you can do that."
+      login_warning_message
       redirect '/login'
     end
   end
@@ -30,12 +31,12 @@ class ShowsController < ApplicationController
     if valid_submission?
       @show = current_user.shows.build(title: params["title"])
       @show.save
-      set_show_genre
-      set_show_length
+      @show.set_show_genre(params)
+      @show.set_show_length(params)
       @show.save
       redirect '/shows'
     else
-      flash[:message] = "Every field needs to be filled out, make sure your show has a Title, a Genre, and a Length."
+      complete_form_warning_message
       redirect '/shows/new'
     end
   end
@@ -47,10 +48,10 @@ class ShowsController < ApplicationController
       random_show
       erb :'/shows/show_details'
     elsif logged_in?
-      flash[:message] = "That's not your show to view!"
+      owner_warning_message
       redirect '/shows'
     else
-      flash[:message] = "Gotta log in before you can do that."
+      login_warning_message
       redirect '/login'
     end
   end
@@ -59,7 +60,7 @@ class ShowsController < ApplicationController
   get '/shows/:id/edit' do
     @show = Show.find(params["id"])
     if !logged_in?
-      flash[:message] = "Gotta log in before you can do that."
+      login_warning_message
       redirect '/login'
     elsif @show.user_id == current_user.id
       @genres = Genre.all
@@ -67,7 +68,7 @@ class ShowsController < ApplicationController
       @show = Show.find(params["id"])
       erb :'/shows/edit_show'
     else
-      flash[:message] = "That's not your show to edit!"
+      owner_warning_message
       redirect '/shows'
     end
   end
@@ -75,27 +76,7 @@ class ShowsController < ApplicationController
   patch '/shows/:id' do
     @show = Show.find(params["id"])
     random_show
-    genre_id = (params["show_genre"].to_i)
-    length_id = (params["show_length"].to_i)
-    if !(params["title"] == "")
-      @show.update(title: params["title"])
-    end
-    if !(@show.genre_id == genre_id)
-      if !(params["show_genre"] == "")
-        @show.update(genre_id: genre_id)
-      else
-        new_genre = Genre.create(name: params["new_genre"])
-        @show.update(genre_id: new_genre.id)
-      end
-    end
-    if !(@show.length_id == length_id)
-      if !(params["show_length"] == "")
-        @show.update(length_id: length_id)
-      else
-        new_length = Length.create(length_description: params["new_length"])
-        @show.update(length_id: new_length.id)
-      end
-    end
+    @show.edit_show(params)
     erb :'/shows/show_details'
   end
 
@@ -104,14 +85,14 @@ class ShowsController < ApplicationController
   get '/shows/:id/delete' do
     @show = Show.find(params["id"])
     if !logged_in?
-      flash[:message] = "Gotta log in before you can do that."
+      login_warning_message
       redirect '/login'
     elsif @show.user_id == current_user.id
       @show.destroy
-      flash[:message] = "Show has been deleted!"
+      show_deleted_message
       redirect '/shows'
     else
-      flash[:message] = "That's not your show to delete!"
+      owner_warning_message
       redirect '/shows'
     end
   end
@@ -119,52 +100,14 @@ class ShowsController < ApplicationController
   delete '/shows/:id/delete' do
     @show = Show.find(params["id"])
     if !logged_in?
-      flash[:message] = "Gotta log in before you can do that."
+      login_warning_message
       redirect '/login'
     elsif @show.user_id == current_user.id
       @show.destroy
       redirect '/shows'
     else
-      flash[:message] = "That's not your show to delete!"
+      owner_warning_message
       redirect '/shows'
-    end
-  end
-
-  helpers do
-    def set_show_genre
-      if genre_dropdown_blank?
-        @show.genre_id = Genre.create(name: params["new_genre"]).id
-      else
-        @show.genre_id = params["show_genre"].to_i
-      end
-    end
-
-    def set_show_length
-      if length_dropdown_blank?
-        @show.length_id = Length.create(length_description: params["new_length"]).id
-      else
-        @show.length_id = params["show_length"].to_i
-      end
-    end
-
-    def valid_submission?
-      !(params["title"] == "") && (!genre_dropdown_blank? || !new_genre_field_blank?) && (!length_dropdown_blank? || !new_length_field_blank?)
-    end
-
-    def genre_dropdown_blank?
-      params["show_genre"] == ""
-    end
-
-    def new_genre_field_blank?
-      params["new_genre"] == ""
-    end
-
-    def length_dropdown_blank?
-      params["show_length"] == ""
-    end
-
-    def new_length_field_blank?
-      params["new_length"] == ""
     end
   end
 
