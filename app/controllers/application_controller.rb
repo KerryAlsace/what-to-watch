@@ -14,7 +14,7 @@ class ApplicationController < Sinatra::Base
   get '/' do
     if logged_in?
       @user = current_user
-      @show_id = (current_user.shows.sample).id
+      random_show
       erb :'/users/welcome'
     else
       erb :index
@@ -44,6 +44,12 @@ class ApplicationController < Sinatra::Base
 
     def logout!
       session.clear
+    end
+
+    def random_show
+      if current_user.shows
+        @random_show = (current_user.shows.sample).id
+      end
     end
 
   end
