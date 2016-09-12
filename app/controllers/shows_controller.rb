@@ -28,9 +28,7 @@ class ShowsController < ApplicationController
 
   post '/shows' do
     if !(params["title"] == "") && (!(params["show_genre"] == "") || !(params["new_genre"] == "")) && (!(params["show_length"] == "") || !(params["new_length"] == ""))
-      @show = Show.new
-      @show.title = params["title"]
-      @show.user = current_user
+      @show = current_user.shows.build(title: params["title"])
       if !(params["show_genre"] == "")
         @show.genre_id = params["show_genre"].to_i
       else

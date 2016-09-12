@@ -14,7 +14,7 @@ class ApplicationController < Sinatra::Base
   get '/' do
     if logged_in?
       @user = current_user
-      @show_slug = (current_user.shows.sample).slug
+      @show_id = (current_user.shows.sample).id
       erb :'/users/welcome'
     else
       erb :index
